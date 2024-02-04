@@ -1,6 +1,7 @@
 package com.nhn.academy.parser;
 
-import com.nhn.academy.data.Tariff;
+import com.nhn.academy.data.WaterBill;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -10,11 +11,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
+@Slf4j
 public class DataParser implements CsvDataParser{
     List<String> header;
     @Override
-    public List<Tariff> parse(String path) {
-        List<Tariff> tariffList = new ArrayList<>();
+    public List<WaterBill> parse(String path) {
+        List<WaterBill> waterBillList = new ArrayList<>();
         header = new ArrayList<>();
 
         File file = new File(path);
@@ -26,34 +28,16 @@ public class DataParser implements CsvDataParser{
                 String[] s = line.split("\\s*,\\s*");
                 if (header.isEmpty()) {
                     header = Arrays.asList(s);
-                } else if(Arrays.asList(s).size() == 7){
-                    tariffList.add(new Tariff(
-                            Integer.valueOf(s[0].trim())
-                            , s[1].trim()
-                            , s[2].trim()
-                            , Integer.valueOf(s[3].trim())
-                            , Integer.valueOf(s[4].trim())
-                            , Integer.valueOf(s[5].trim())
-                            , Integer.valueOf(s[6].trim())
-                            , ""
-                    ));
-                } else {
-                    tariffList.add(new Tariff(
-                            Integer.valueOf(s[0].trim())
-                            , s[1].trim()
-                            , s[2].trim()
-                            , Integer.valueOf(s[3].trim())
-                            , Integer.valueOf(s[4].trim())
-                            , Integer.valueOf(s[5].trim())
-                            , Integer.valueOf(s[6].trim())
-                            , s[7].trim()
-                    ));
+                }else {
+                    waterBillList.add(new WaterBill(s[1].trim(), s[2].trim(), Integer.valueOf(s[6].trim()), 0));
                 }
             }
-            return tariffList;
+            return waterBillList;
         } catch (FileNotFoundException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         } catch (IOException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         } finally {
             try{

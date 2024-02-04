@@ -1,12 +1,11 @@
 package com.nhn.academy;
 
-import com.nhn.academy.data.Tariff;
+import com.nhn.academy.data.WaterBill;
 import com.nhn.academy.parser.DataParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 public class DataParserTest {
@@ -19,8 +18,13 @@ public class DataParserTest {
     }
     @Test
     void parse(){
-        List<Tariff> tariffList = dataParser.parse(path);
+        List<WaterBill> tariffList = dataParser.parse(path);
         Assertions.assertEquals(8, dataParser.getHeader().size());
         Assertions.assertEquals(10, tariffList.size());
+    }
+
+    @Test
+    void exception(){
+        Assertions.assertThrows(RuntimeException.class, ()->{List<WaterBill> test = dataParser.parse("");});
     }
 }
