@@ -31,4 +31,14 @@ public class WaterBill {
     public int getBillTotal() {
         return billTotal;
     }
+
+    @Override
+    public String toString() {
+        return "WaterBill{" +
+                "city='" + city + '\'' +
+                ", sector='" + sector + '\'' +
+                ", unitPrice=" + unitPrice +
+                ", billTotal=" + billTotal +
+                '}';
+    }
 }
