@@ -12,7 +12,7 @@ import org.springframework.util.StopWatch;
 @Slf4j
 public class JavaAspect {
     @Around("execution(* * (..))")
-    private Object test(ProceedingJoinPoint pjp) throws Throwable {
+    private Object loggingExecutionTime(ProceedingJoinPoint pjp) throws Throwable {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         try{
@@ -24,4 +24,5 @@ public class JavaAspect {
             log.info("[{}].[{}] [{}]ms", pjp.getTarget().getClass().getSimpleName(), pjp.getSignature().getName(), stopWatch.getTotalTimeMillis());
         }
     }
+
 }

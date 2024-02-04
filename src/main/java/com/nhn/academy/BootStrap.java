@@ -16,7 +16,7 @@ public class BootStrap {
         WaterUsageFeeService waterUsageFeeService = context.getBean("waterUsageFeeServiceImpl", WaterUsageFeeService.class);
         ResultReport resultReport = context.getBean("resultReportImpl", ResultReport.class);
 
-        tariffRepository.csvFileLoad("/home/nhnacademy/IdeaProjects/water-bills-system/src/main/resources/Tariff_20220331.csv");
+        tariffRepository.fileLoad("/home/nhnacademy/IdeaProjects/water-bills-system/src/main/resources/Tariff_20220331.json");
         List<WaterBill> result = resultReport.report(waterUsageFeeService.calc(3000));
         result.stream().forEach(System.out::println);
     }

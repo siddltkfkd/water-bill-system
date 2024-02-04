@@ -1,7 +1,7 @@
 package com.nhn.academy;
 
 import com.nhn.academy.data.Tariff;
-import com.nhn.academy.parser.CsvDataParser;
+import com.nhn.academy.parser.DataParser;
 import com.nhn.academy.repository.TariffRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 
 public class TariffRepositoryTest {
     @Mock
-    private CsvDataParser csvDataParser;
+    private DataParser dataParser;
     @InjectMocks
     private TariffRepositoryImpl tariffRepository;
     private String path = "/home/nhnacademy/IdeaProjects/water-bills-system/src/test/resources/Tariff_test.csv";
@@ -29,8 +29,8 @@ public class TariffRepositoryTest {
     }
     @Test
     void csvFileLoad(){
-        tariffRepository.csvFileLoad(path);
-        verify(csvDataParser, times(1)).parse(any());
+        tariffRepository.fileLoad(path);
+        verify(dataParser, times(1)).parse(any());
     }
     @Test
     void findFeeForUsage(){
